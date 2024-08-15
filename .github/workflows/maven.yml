@@ -28,5 +28,4 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      working-directory: ABCRestaurant
       run: mvn clean compile
