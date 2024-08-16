@@ -18,22 +18,26 @@ public class MyConnection {
     private Connection con = null;
     private Statement st = null;
     private PreparedStatement pst = null;
-    private ResultSet rs1 = null;
-    private ResultSet rs2 = null;
 
     private MyConnection() {
 
         try {
 
+            Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/abc_restaurant?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false", "root", "MySQL@123");
             st = con.createStatement();
             System.out.println("Connection Success!");
 
+        } catch (ClassNotFoundException e) {
+            
+            System.err.println("MySQL JDBC Driver not found: " + e.getMessage());
+            
         } catch (SQLException e) {
-
-            System.out.println("Database Connection Error (MyConnection Class): " + e);
-
+            
+            System.err.println("Database Connection Error (MyConnection Class): " + e.getMessage());
+            
         }
+
 
     }
 
@@ -52,33 +56,25 @@ public class MyConnection {
 
     }
 
-    public Statement getStatement() {
+    public Statement getStatement() throws SQLException{
 
-        return st;
+        return con.createStatement();
 
     }
 
     public PreparedStatement getPreparedStatement(String SQLQuery) throws SQLException {
 
-        if (pst == null) {
-            pst = con.prepareStatement(SQLQuery);
-        }
-
-        return pst;
+        return con.prepareStatement(SQLQuery);
 
     }
-
+    
+    public ResultSet executeQuery(PreparedStatement pst) throws SQLException {
+        return pst.executeQuery();
+    }
+    
     public void clear() {
 
         try {
-
-            if (rs1 != null) {
-                rs1.close();
-            }
-
-            if (rs2 != null) {
-                rs2.close();
-            }
 
             if (pst != null) {
                 pst.close();
@@ -97,9 +93,7 @@ public class MyConnection {
             System.out.println("Error Clearing database resources : " + e);
 
         } finally {
-
-            rs1 = null;
-            rs2 = null;
+            
             pst = null;
             st = null;
             con = null;
