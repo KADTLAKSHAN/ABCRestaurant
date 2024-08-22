@@ -20,5 +20,7 @@ public interface DBUserUtils {
     
     public boolean userLogin();
     
+    public boolean addCustomer(Customer customer);
+    
     
 }

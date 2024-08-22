@@ -6,15 +6,15 @@ package com.mycompany.abcrestaurant.resources;
  */
 public class Customer extends User{
 
-    private String phoneNumber;
-    private String address;
-    private int age;
+    private String userPhoneNumber;
+    private String userAddress;
+    private int userAge;
 
-    public Customer(String phoneNumber, String address, int age, int userID, String userName, String userFirstName, String userLastName, String userEmail, String userPassword, String userType) {
+    public Customer(String userPhoneNumber, String userAddress, int userAge, int userID, String userName, String userFirstName, String userLastName, String userEmail, String userPassword, String userType) {
         super(userID, userName, userFirstName, userLastName, userEmail, userPassword, userType);
-        this.phoneNumber = phoneNumber;
-        this.address = address;
-        this.age = age;
+        this.userPhoneNumber = userPhoneNumber;
+        this.userAddress = userAddress;
+        this.userAge = userAge;
     }
 
     
@@ -25,27 +25,27 @@ public class Customer extends User{
     }
 
     public String getPhoneNumber() {
-        return phoneNumber;
+        return userPhoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhoneNumber(String userPhoneNumber) {
+        this.userPhoneNumber = userPhoneNumber;
     }
 
     public String getAddress() {
-        return address;
+        return userAddress;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAddress(String userAddress) {
+        this.userAddress = userAddress;
     }
 
     public int getAge() {
-        return age;
+        return userAge;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setAge(int userAge) {
+        this.userAge = userAge;
     }
     
     
