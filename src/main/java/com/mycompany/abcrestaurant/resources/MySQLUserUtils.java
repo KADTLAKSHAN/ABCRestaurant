@@ -24,23 +24,21 @@ public class MySQLUserUtils implements DBUserUtils {
             MyConnection myCon = MyConnection.getInstance();
             myCon.getConnection();
             ResultSet rs = myCon.executeQuery(myCon.getPreparedStatement(sql));
-            
-            while(rs.next()){
-                
-                user.add(new User(rs.getInt("userID"),rs.getString("userName"),rs.getString("userFirstName"),rs.getString("userLastName"),rs.getString("userEmail"),rs.getString("userPassword"),rs.getString("userType")));
-  
+
+            while (rs.next()) {
+
+                user.add(new User(rs.getString("userName"), rs.getString("userFirstName"), rs.getString("userLastName"), rs.getString("userEmail"), rs.getString("userPassword"), rs.getString("userType")));
+
             }
-            
+
             myCon.clear();
-            
 
         } catch (SQLException e) {
-            
+
             return null;
-            
+
         }
-        
-        
+
         return user;
 
     }
@@ -66,19 +64,45 @@ public class MySQLUserUtils implements DBUserUtils {
     }
 
     @Override
-    public boolean userLogin() {
+    public boolean userLogin(String userName, String userPassword, String userType) {
+
+        String sql = "SELECT * FROM tblUser WHERE BINARY userName=? AND userPassword=? AND userType=?";
+
+        try {
+
+            MyConnection myConnection = MyConnection.getInstance();
+            myConnection.getConnection();
+            PreparedStatement pst = myConnection.getPreparedStatement(sql);
+            pst.setString(1, userName);
+            pst.setString(2, userPassword);
+            pst.setString(3, userType);
+
+            ResultSet resultSet = pst.executeQuery();
+            
+
+            if (resultSet.isBeforeFirst()) {
+
+                return true;
+
+            }
+
+        } catch (Exception e) {
+
+            System.out.println("userLogin Function error Database::: " + e);
+
+        }
+
         return false;
+
     }
 
     @Override
     public boolean addCustomer(Customer customer) {
-        
+
         String sql = "INSERT INTO tblUser (userName, userFirstName, userLastName, userEmail, userAddress, userAge, userPhoneNumber, userPassword, userType) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        
-        System.out.println("Test 1");
+
         try {
-            
-            System.out.println("Test2");
+
             MyConnection myConnection = MyConnection.getInstance();
             myConnection.getConnection();
             PreparedStatement pst = myConnection.getPreparedStatement(sql);
@@ -90,23 +114,19 @@ public class MySQLUserUtils implements DBUserUtils {
             pst.setInt(6, customer.getAge());
             pst.setString(7, customer.getPhoneNumber());
             pst.setString(8, customer.getUserPassword());
-            pst.setString(9, "Customer");
-            
+            pst.setString(9, customer.getUserType());
+
             int rowAffected = pst.executeUpdate();
-            
-            myConnection.clear();
-            
+
             return rowAffected == 1;
-            
-            
+
         } catch (Exception e) {
-            
+
             System.out.println("Add Customer MySQL Util Error (Database) ::::" + e);
             return false;
-            
-        }
-        
-    }
 
+        }
+
+    }
 
 }

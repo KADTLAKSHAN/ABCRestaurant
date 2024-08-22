@@ -35,10 +35,33 @@ public class UserResource {
     public Response addCustomer(String json){
         
         utils.addCustomer(gson.fromJson(json, Customer.class));
-        System.out.println(json);
         return Response
                 .status(Response.Status.CREATED)
                 .build();
+        
+    }
+    
+    
+    @POST
+    @Path("/userlogin")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response userLogin(String json){
+        
+        User user = gson.fromJson(json, User.class);
+        if(utils.userLogin(user.getUserName(), user.getUserPassword(), user.getUserType())){
+            
+            return Response
+                    .status(Response.Status.OK)
+                    .build();
+            
+        }else{
+            
+            return Response
+                    .status(Response.Status.UNAUTHORIZED)
+                    .build();
+            
+        }
+        
         
     }
     

@@ -9,9 +9,9 @@ public class Customer extends User{
     private String userPhoneNumber;
     private String userAddress;
     private int userAge;
-
-    public Customer(String userPhoneNumber, String userAddress, int userAge, int userID, String userName, String userFirstName, String userLastName, String userEmail, String userPassword, String userType) {
-        super(userID, userName, userFirstName, userLastName, userEmail, userPassword, userType);
+  
+    public Customer(String userPhoneNumber, String userAddress, int userAge, String userName, String userFirstName, String userLastName, String userEmail, String userPassword, String userType) {
+        super(userName, userFirstName, userLastName, userEmail, userPassword, userType);
         this.userPhoneNumber = userPhoneNumber;
         this.userAddress = userAddress;
         this.userAge = userAge;

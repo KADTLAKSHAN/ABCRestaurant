@@ -6,7 +6,6 @@ package com.mycompany.abcrestaurant.resources;
  */
 public class User {
 
-    private int userID;
     private String userName;
     private String userFirstName;
     private String userLastName;
@@ -14,8 +13,7 @@ public class User {
     private String userPassword;
     private String userType;
 
-    public User(int userID, String userName, String userFirstName, String userLastName, String userEmail, String userPassword, String userType) {
-        this.userID = userID;
+    public User(String userName, String userFirstName, String userLastName, String userEmail, String userPassword, String userType) {
         this.userName = userName;
         this.userFirstName = userFirstName;
         this.userLastName = userLastName;
@@ -76,13 +74,7 @@ public class User {
         this.userLastName = userLastName;
     }
 
-    public int getUserID() {
-        return userID;
-    }
-
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
+    
     
     
     
