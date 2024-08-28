@@ -168,6 +168,37 @@ public class MySQLReservationUtils implements DBReservationUtils{
         
         
     }
+
+    @Override
+    public boolean updateReservation(Reservation reservation) {
+        String sql = "UPDATE tblReservation SET reservationEmail=?, reservationDate=?, reservationTime=?, reservationPeople=?, userName=? WHERE reservationID=?";
+        
+        try {
+            
+            MyConnection myConnection = MyConnection.getInstance();
+            myConnection.getConnection();
+            PreparedStatement pst = myConnection.getPreparedStatement(sql);
+            pst.setString(1, reservation.getReservationEmail());
+            pst.setString(2, reservation.getReservationDate());
+            pst.setString(3, reservation.getReservationTime());
+            pst.setInt(4, reservation.getReservationPeople());
+            pst.setString(5, reservation.getUserName());
+            pst.setInt(6, reservation.getReservationID());
+                 
+            if(pst.executeUpdate() == 1){
+                return true;
+            }
+            
+            
+            
+        } catch (Exception e) {
+            
+            System.out.println("updateUser Function error Database::: " + e);
+            
+        }
+        
+        return false;
+    }
     
     
     

@@ -9,6 +9,7 @@ import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
@@ -92,6 +93,32 @@ public class ReservationResource {
             return Response
                     .ok(gson.toJson(reservation))
                     .build();
+        }
+        
+        
+        
+    }
+    
+    
+    @PUT
+    @Path("/updatereservation/{reservationid}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateReservation(String json, @PathParam("reservationid") int reservationID){
+         
+        
+        if(reservationUtils.updateReservation(gson.fromJson(json, Reservation.class))){
+            
+            return Response
+                    .status(Response.Status.OK)
+                    .build();
+            
+            
+        }else{
+            
+            return Response
+                    .status(Response.Status.NOT_FOUND)
+                    .build();
+            
         }
         
         

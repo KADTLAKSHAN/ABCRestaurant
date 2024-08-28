@@ -22,4 +22,6 @@ public interface DBReservationUtils {
     
     public Reservation searchReservation(int reservationID);
     
+    public boolean updateReservation(Reservation reservation);
+    
 }

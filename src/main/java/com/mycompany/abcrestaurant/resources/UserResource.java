@@ -5,6 +5,7 @@ import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
@@ -116,6 +117,31 @@ public class UserResource {
             return Response
                     .ok(gson.toJson(user))
                     .build();
+        }
+        
+        
+        
+    }
+    
+    @PUT
+    @Path("/updateuser/{userName}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateUser(String json, @PathParam("userName") String userName){
+         
+        
+        if(utils.updateUsers(gson.fromJson(json, Customer.class))){
+            
+            return Response
+                    .status(Response.Status.OK)
+                    .build();
+            
+            
+        }else{
+            
+            return Response
+                    .status(Response.Status.NOT_FOUND)
+                    .build();
+            
         }
         
         

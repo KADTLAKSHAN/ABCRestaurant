@@ -108,8 +108,41 @@ public class MySQLUserUtils implements DBUserUtils {
     }
 
     @Override
-    public boolean updateUser() {
+    public boolean updateUsers(Customer user) {
+        String sql = "UPDATE tblUser SET userFirstName=?, userLastName=?, userEmail=?, userAddress=?, userAge=?, userPhoneNumber=?, userPassword=?, userType=? WHERE userName=?";
+        
+        try {
+            
+            MyConnection myConnection = MyConnection.getInstance();
+            myConnection.getConnection();
+            PreparedStatement pst = myConnection.getPreparedStatement(sql);
+            pst.setString(1, user.getUserFirstName());
+            pst.setString(2, user.getUserLastName());
+            pst.setString(3, user.getUserEmail());
+            pst.setString(4, user.getAddress());
+            pst.setInt(5, user.getAge());
+            pst.setString(6, user.getPhoneNumber());
+            pst.setString(7, user.getUserPassword());
+            pst.setString(8, user.getUserType());
+            pst.setString(9, user.getUserName());
+            
+            
+            
+            if(pst.executeUpdate() == 1){
+                return true;
+            }
+            
+            
+            
+        } catch (Exception e) {
+            
+            System.out.println("updateUser Function error Database::: " + e);
+            
+        }
+        
         return false;
+        
+        
     }
 
     @Override

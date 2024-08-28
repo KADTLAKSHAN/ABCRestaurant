@@ -14,7 +14,7 @@ public interface DBUserUtils {
     
     public boolean addUser(Customer customer);
     
-    public boolean updateUser();
+    public boolean updateUsers(Customer user);
     
     public boolean deleteUser(String userName);
     
