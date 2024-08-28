@@ -3,8 +3,8 @@ com/mycompany/abcrestaurant/resources/Customer.class
 com/mycompany/abcrestaurant/JakartaRestConfiguration.class
 com/mycompany/abcrestaurant/resources/Admin.class
 com/mycompany/abcrestaurant/resources/JakartaEE9Resource.class
+com/mycompany/abcrestaurant/resources/User.class
 com/mycompany/abcrestaurant/resources/Manager.class
 com/mycompany/abcrestaurant/resources/MyConnection.class
-com/mycompany/abcrestaurant/resources/User.class
 com/mycompany/abcrestaurant/resources/MySQLUserUtils.class
 com/mycompany/abcrestaurant/resources/DBUserUtils.class

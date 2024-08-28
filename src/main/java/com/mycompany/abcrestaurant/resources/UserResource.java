@@ -2,9 +2,11 @@ package com.mycompany.abcrestaurant.resources;
 
 import com.google.gson.Gson;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -64,6 +66,62 @@ public class UserResource {
         
         
     }
+    
+    @POST
+    @Path("/adduser")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addUser(String json){
+        
+        utils.addUser(gson.fromJson(json, Customer.class));
+        return Response
+                .status(Response.Status.CREATED)
+                .build();
+        
+    }
+    
+    
+    @DELETE
+    @Path("/deleteuser/{userName}")
+    public Response deleteUser(@PathParam("userName") String userName){
+        
+        if(utils.deleteUser(userName)){
+            
+            return Response
+                    .status(Response.Status.OK)
+                    .build();
+            
+        }else{
+            
+            return Response
+                    .status(Response.Status.NOT_FOUND)
+                    .build();
+            
+        }
+        
+    }
+    
+    
+    @GET
+    @Path("/searchuser/{userName}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getUser(@PathParam("userName") String userName){
+        
+        Customer user = utils.searchUser(userName);
+        
+        if(user == null){
+            return Response
+                    .status(Response.Status.NOT_FOUND)
+                    .build();
+        }else{
+            return Response
+                    .ok(gson.toJson(user))
+                    .build();
+        }
+        
+        
+        
+    }
+    
     
     
     
