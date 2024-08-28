@@ -6,8 +6,12 @@ package com.mycompany.abcrestaurant.resources;
 
 import com.google.gson.Gson;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
@@ -20,6 +24,21 @@ public class ReservationResource {
     
     Gson gson = new Gson();
     DBReservationUtils reservationUtils = new MySQLReservationUtils();
+    
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllReservation(){
+        
+        return Response
+                .ok(gson.toJson(reservationUtils.getAllReservations()))
+                .build();
+        
+        
+    }
+    
+    
+    
     
     @POST
     @Path("/makereservation")
@@ -35,6 +54,47 @@ public class ReservationResource {
                     .status(Response.Status.UNAUTHORIZED)
                     .build();
         }
+        
+    }
+    
+    @DELETE
+    @Path("/deletereservations/{reservationid}")
+    public Response deleteReservation(@PathParam("reservationid") int reservationid){
+        
+        if(reservationUtils.deleteReservation(reservationid)){
+            
+            return Response
+                    .status(Response.Status.OK)
+                    .build();
+            
+        }else{
+            
+            return Response
+                    .status(Response.Status.NOT_FOUND)
+                    .build();
+            
+        }
+        
+    }
+    
+    @GET
+    @Path("/searchreservation/{reservationid}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getReservation(@PathParam("reservationid") int reservationid){
+        
+        Reservation reservation = reservationUtils.searchReservation(reservationid);
+        
+        if(reservation == null){
+            return Response
+                    .status(Response.Status.NOT_FOUND)
+                    .build();
+        }else{
+            return Response
+                    .ok(gson.toJson(reservation))
+                    .build();
+        }
+        
+        
         
     }
 
