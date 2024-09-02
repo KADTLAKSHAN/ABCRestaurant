@@ -173,4 +173,33 @@ public class MySQLProductUtils implements DBProductUtils {
         return products;
     }
 
+    @Override
+    public List<Product> getAllProductsByCategoryID(String categoryID) {
+        List<Product> products = new ArrayList<>();
+
+        String sql = "SELECT * FROM tblProduct WHERE categoryID=?";
+
+        try {
+
+            MyConnection myCon = MyConnection.getInstance();
+            myCon.getConnection();
+            PreparedStatement pst = myCon.getPreparedStatement(sql);
+            pst.setString(1, categoryID);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+
+                products.add(new Product(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDouble(4), rs.getString(5), rs.getString(6), rs.getDouble(7), rs.getString(8)));
+
+            }
+
+        } catch (SQLException e) {
+
+            return null;
+
+        }
+
+        return products;
+    }
+
 }

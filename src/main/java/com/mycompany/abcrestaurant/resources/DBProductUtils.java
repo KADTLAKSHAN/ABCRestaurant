@@ -22,4 +22,6 @@ public interface DBProductUtils {
     
     public List<Product> getAllProduct();
     
+    public List<Product> getAllProductsByCategoryID(String categoryID);
+    
 }

@@ -13,8 +13,10 @@ import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import java.util.List;
 
 /**
  *
@@ -22,113 +24,110 @@ import jakarta.ws.rs.core.Response;
  */
 @Path("product")
 public class ProductResource {
-    
+
     Gson gson = new Gson();
     DBProductUtils productUtils = new MySQLProductUtils();
-    
-    
-    
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getProducts(){
-        
-        return Response
-                .ok(gson.toJson(productUtils.getAllProduct()))
-                .build();
-        
+    public Response getProducts(@QueryParam("categoryID") String categoryID) {
+
+        try {
+            List<Product> products;
+            if (categoryID != null && !categoryID.isEmpty()) {
+                products = productUtils.getAllProductsByCategoryID(categoryID);
+            } else {
+                products = productUtils.getAllProduct();
+            }
+            return Response.ok(products).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Error fetching products").build();
+        }
+
     }
-    
+
     @POST
     @Path("/addproduct")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addProduct(String json){
-        
+    public Response addProduct(String json) {
+
         Product prod = gson.fromJson(json, Product.class);
-        
+
         boolean isAddedProduct = productUtils.addProduct(prod);
-        
-        if(isAddedProduct){
-            
+
+        if (isAddedProduct) {
+
             return Response
                     .status(Response.Status.CREATED)
                     .build();
-            
-        }else{
+
+        } else {
             return Response
                     .status(Response.Status.BAD_REQUEST)
                     .build();
-        }   
-        
+        }
+
     }
-    
+
     @DELETE
     @Path("/deleteproduct/{productID}")
-    public Response deleteProduct(@PathParam("productID") String productID){
-        
-        if(productUtils.deleteProduct(productID)){
-            
+    public Response deleteProduct(@PathParam("productID") String productID) {
+
+        if (productUtils.deleteProduct(productID)) {
+
             return Response
                     .status(Response.Status.OK)
                     .build();
-            
-        }else{
-            
+
+        } else {
+
             return Response
                     .status(Response.Status.NOT_FOUND)
                     .build();
-            
+
         }
-        
+
     }
-    
-    
+
     @GET
     @Path("/searchproduct/{productID}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getProduct(@PathParam("productID") String productID){
-        
+    public Response getProduct(@PathParam("productID") String productID) {
+
         Product product = productUtils.searchProduct(productID);
-        
-        if(product == null){
+
+        if (product == null) {
             return Response
                     .status(Response.Status.NOT_FOUND)
                     .build();
-        }else{
+        } else {
             return Response
                     .ok(gson.toJson(product))
                     .build();
         }
-        
-        
-        
+
     }
-    
+
     @PUT
     @Path("/updateproduct/{productID}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateUser(String json, @PathParam("productID") String productID){
-         
-        
-        if(productUtils.updateProduct(gson.fromJson(json, Product.class))){
-            
+    public Response updateUser(String json, @PathParam("productID") String productID) {
+
+        if (productUtils.updateProduct(gson.fromJson(json, Product.class))) {
+
             return Response
                     .status(Response.Status.OK)
                     .build();
-            
-            
-        }else{
-            
+
+        } else {
+
             return Response
                     .status(Response.Status.NOT_FOUND)
                     .build();
-            
-        }
-        
-        
-        
-    }
-    
-    
 
-    
+        }
+
+    }
+
 }
