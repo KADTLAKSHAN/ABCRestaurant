@@ -11,6 +11,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import java.util.UUID;
 
 /**
  *
@@ -53,8 +54,13 @@ public class UserResource {
         User user = gson.fromJson(json, User.class);
         if(utils.userLogin(user.getUserName(), user.getUserPassword(), user.getUserType())){
             
+            String token = UUID.randomUUID().toString();
+            
+            LoginResponse loginResponse = new LoginResponse(token, user.getUserName(), user.getUserType());
+            
             return Response
                     .status(Response.Status.OK)
+                    .entity(loginResponse)
                     .build();
             
         }else{
@@ -141,6 +147,86 @@ public class UserResource {
             return Response
                     .status(Response.Status.NOT_FOUND)
                     .build();
+            
+        }
+        
+        
+        
+    }
+    
+    @PUT
+    @Path("/updatecustomer")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateCustomer(String json){
+        
+        if(utils.updateCustomerProfile(gson.fromJson(json, Customer.class))){
+            
+            return Response
+                    .status(Response.Status.OK)
+                    .build();
+            
+        }else{
+            
+            return Response
+                    .status(Response.Status.NOT_FOUND)
+                    .build();
+            
+        }
+        
+        
+    }
+    
+    
+    
+    public static class LoginResponse{
+        
+        private String token;
+        private String userName;
+        private String userType;
+        
+        public LoginResponse(String token, String userName, String userType){
+            
+            this.token = token;
+            this.userName = userName;
+            this.userType = userType;
+            
+        }
+        
+        
+        public String getToken(){
+            
+            return token;
+            
+        }
+        
+        public void setToken(String token){
+            
+            this.token = token;
+            
+            
+        }
+        
+        public String getUserName(){
+            
+            return userName;
+            
+        }
+        
+        public void setUserName(String userName){
+            
+            this.userName = userName;
+            
+        }
+        
+        public String getUserType(){
+            
+            return userType;
+            
+        }
+        
+        public void setUserType(String userType){
+            
+            this.userType = userType;
             
         }
         

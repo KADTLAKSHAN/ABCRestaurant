@@ -194,5 +194,64 @@ public class MySQLInquryUtils implements DBInquiryUtils{
         return false;
     }
 
+    @Override
+    public List<Inquiry> getAllInquiryByUser(String userName) {
+        List<Inquiry> inquiries = new ArrayList<>();
+
+        String sql = "SELECT * FROM tblInquire WHERE userName=?";
+
+        try {
+
+            MyConnection myCon = MyConnection.getInstance();
+            myCon.getConnection();
+            PreparedStatement pst = myCon.getPreparedStatement(sql);
+            pst.setString(1, userName);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+
+                inquiries.add(new Inquiry(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7)));
+
+            }
+
+
+        } catch (SQLException e) {
+
+            return null;
+
+        }
+
+        return inquiries;
+    }
+
+    @Override
+    public List<Inquiry> getAllSortedInquiryForManager() {
+        
+        List<Inquiry> inquiries = new ArrayList<>();
+        
+        String sql = "SELECT * FROM tblInquire ORDER BY CASE WHEN inquireReply='No' THEN 1 WHEN inquireReply='Yes' THEN 2 ELSE 3 END, inquireDate DESC";
+        
+        try {
+
+            MyConnection myCon = MyConnection.getInstance();
+            myCon.getConnection();
+            ResultSet rs = myCon.executeQuery(myCon.getPreparedStatement(sql));
+
+            while (rs.next()) {
+
+                inquiries.add(new Inquiry(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7)));
+
+            }
+
+
+        } catch (SQLException e) {
+
+            return null;
+
+        }
+
+        return inquiries;
+    }
+
     
 }

@@ -37,6 +37,28 @@ public class InquiryResource {
         
     }
     
+    @GET
+    @Path("/sortedInquiriesformanager")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllSortedInquires(){
+        
+        return Response
+                .ok(gson.toJson(inquiryUtils.getAllSortedInquiryForManager()))
+                .build();
+        
+    }
+    
+    @GET
+    @Path("/findinquiry/{userName}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllInquiresByUser(@PathParam("userName") String userName){
+        
+        return Response
+                .ok(gson.toJson(inquiryUtils.getAllInquiryByUser(userName)))
+                .build();
+        
+    }
+    
     @POST
     @Path("/addinquiry")
     @Consumes(MediaType.APPLICATION_JSON)

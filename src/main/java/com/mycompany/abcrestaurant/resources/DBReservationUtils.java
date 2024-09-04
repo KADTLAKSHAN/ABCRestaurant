@@ -24,4 +24,6 @@ public interface DBReservationUtils {
     
     public boolean updateReservation(Reservation reservation);
     
+    public List<Reservation> getAllReservationsByCustomer(String userName);
+    
 }

@@ -73,16 +73,6 @@ public class User {
     public void setUserLastName(String userLastName) {
         this.userLastName = userLastName;
     }
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+   
     
 }

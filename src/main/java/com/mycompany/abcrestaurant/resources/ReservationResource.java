@@ -38,6 +38,18 @@ public class ReservationResource {
         
     }
     
+    @GET
+    @Path("/findreservations/{userName}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getReservations(@PathParam("userName") String userName){
+        
+        
+        return Response
+                .ok(gson.toJson(reservationUtils.getAllReservationsByCustomer(userName)))
+                .build();
+        
+    }
+    
     
     
     

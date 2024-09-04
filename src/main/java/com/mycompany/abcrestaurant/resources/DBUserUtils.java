@@ -22,5 +22,7 @@ public interface DBUserUtils {
     
     public boolean addCustomer(Customer customer);
     
+    public boolean updateCustomerProfile(Customer customer);
+    
     
 }

@@ -199,6 +199,38 @@ public class MySQLReservationUtils implements DBReservationUtils{
         
         return false;
     }
+
+    @Override
+    public List<Reservation> getAllReservationsByCustomer(String userName) {
+        
+        List<Reservation> reservation = new ArrayList<>();
+
+        String sql = "SELECT * FROM tblReservation WHERE userName=?";
+
+        try {
+
+            MyConnection myCon = MyConnection.getInstance();
+            myCon.getConnection();
+            PreparedStatement pst = myCon.getPreparedStatement(sql);
+            pst.setString(1, userName);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+
+                reservation.add(new Reservation(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6)));
+
+            }
+
+
+        } catch (SQLException e) {
+
+            return null;
+
+        }
+
+        return reservation;
+        
+    }
     
     
     

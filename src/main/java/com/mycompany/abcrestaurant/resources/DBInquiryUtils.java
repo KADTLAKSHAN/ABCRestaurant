@@ -24,6 +24,10 @@ public interface DBInquiryUtils {
     
     public boolean checkUserExist(String userName);
     
+    public List<Inquiry> getAllInquiryByUser(String userName);
+    
+    public List<Inquiry> getAllSortedInquiryForManager();
+    
     
     
 }
