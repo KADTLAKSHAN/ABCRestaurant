@@ -8,7 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -102,6 +104,47 @@ public class MySQLRateUtils implements DBRateUtils {
         }
 
         return rate;
+    }
+
+    @Override
+    public List<Map<String, Object>> getAllRatingWithName() {
+        
+        String sql = "SELECT r.rateID,r.rateTitle,r.rateDescription,u.userFirstName FROM tblRating r JOIN tblUser u ON r.userName = u.userName;";
+        
+        List<Map<String, Object>> ratings = new ArrayList<>();
+        
+        try {
+            
+            MyConnection myConnection = MyConnection.getInstance();
+            myConnection.getConnection();
+            PreparedStatement pst = myConnection.getPreparedStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            
+            while(rs.next()){
+                
+                Map<String, Object> rating = new HashMap<>();
+                rating.put("rateID", rs.getString(1));
+                rating.put("rateTitle", rs.getString(2));
+                rating.put("rateDescription", rs.getString(3));
+                rating.put("userFirstName", rs.getString(4));
+                
+                ratings.add(rating);
+                
+                
+                
+            }
+            
+            
+        } catch (SQLException e) {
+            
+            System.out.println("getAllRatingWithName method error: " + e);
+            return null;
+            
+            
+        }
+        
+        return ratings;
+        
     }
 
 }

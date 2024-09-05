@@ -46,6 +46,19 @@ public class RateResource {
         
     }
     
+    
+    @GET
+    @Path("/getratewithname")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllRateWithNames(){
+        
+        return Response
+                .ok(gson.toJson(rateUtils.getAllRatingWithName()))
+                .build();
+        
+    }
+    
+    
     @POST
     @Path("/addrate")
     @Consumes(MediaType.APPLICATION_JSON)

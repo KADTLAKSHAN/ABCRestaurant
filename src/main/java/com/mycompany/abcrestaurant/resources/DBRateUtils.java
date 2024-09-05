@@ -5,6 +5,7 @@
 package com.mycompany.abcrestaurant.resources;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -17,5 +18,7 @@ public interface DBRateUtils {
     public List<Rate> getAllRateByUser(String user);
     
     public List<Rate> getAllRates();
+    
+    public List<Map<String, Object>> getAllRatingWithName();
     
 }
