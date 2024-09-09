@@ -22,6 +22,16 @@ public class Reservation {
         this.userName = userName;
     }
 
+    public Reservation(String reservationEmail, String reservationDate, String reservationTime, int reservationPeople, String userName) {
+        this.reservationEmail = reservationEmail;
+        this.reservationDate = reservationDate;
+        this.reservationTime = reservationTime;
+        this.reservationPeople = reservationPeople;
+        this.userName = userName;
+    }
+    
+    
+
     public Reservation() {
         
     }

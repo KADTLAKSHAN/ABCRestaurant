@@ -8,7 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -229,6 +231,47 @@ public class MySQLReservationUtils implements DBReservationUtils{
         }
 
         return reservation;
+        
+    }
+
+    @Override
+    public Map<String, Boolean> availability() {
+        Map<String, Boolean> availability = new HashMap<>();
+        
+        String sql = "SELECT * FROM tblDate";
+        
+        try {
+            
+            MyConnection myCon = MyConnection.getInstance();
+            myCon.getConnection();
+            PreparedStatement pst = myCon.getPreparedStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            
+            while(rs.next()){
+                String date = rs.getString(1);
+                String time = rs.getString(2);
+                String key = date + ":" + time; //composite key
+                
+                if("Both".equals(time)){
+                    
+                    availability.put(date + ":1 PM", false);
+                    availability.put(date + ":10 AM",false );        
+                    
+                }else{
+                    
+                    availability.put(key, false);
+                    
+                }
+                
+                
+            }
+            
+            
+        } catch (Exception e) {
+            System.out.println("Disable date function error: " + e);
+        }
+        
+        return availability;
         
     }
     

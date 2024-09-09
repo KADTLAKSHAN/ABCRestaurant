@@ -5,6 +5,7 @@
 package com.mycompany.abcrestaurant.resources;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -25,5 +26,7 @@ public interface DBReservationUtils {
     public boolean updateReservation(Reservation reservation);
     
     public List<Reservation> getAllReservationsByCustomer(String userName);
+    
+    public Map<String,Boolean> availability();
     
 }

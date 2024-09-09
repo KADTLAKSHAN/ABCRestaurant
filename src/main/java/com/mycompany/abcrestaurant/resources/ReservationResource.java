@@ -136,6 +136,18 @@ public class ReservationResource {
         
         
     }
+    
+    
+    @GET
+    @Path("/getDisabledates")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getDisableDates(){
+        
+        return Response.ok(gson.toJson(reservationUtils.availability()))
+                .build();
+        
+        
+    }
 
     
 }
