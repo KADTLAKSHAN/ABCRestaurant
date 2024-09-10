@@ -19,14 +19,18 @@ public interface DBReservationUtils {
     
     public List<Reservation> getAllReservations();
     
-    public boolean deleteReservation(int reservationID);
+    public boolean deleteReservation(String reservationID);
     
-    public Reservation searchReservation(int reservationID);
+    public Reservation searchReservation(String reservationID);
     
     public boolean updateReservation(Reservation reservation);
     
     public List<Reservation> getAllReservationsByCustomer(String userName);
     
     public Map<String,Boolean> availability();
+    
+    public String generatedID(String userName);
+    
+    public boolean reservationPayment(Payment payment);
     
 }

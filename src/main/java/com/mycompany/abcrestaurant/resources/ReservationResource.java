@@ -15,6 +15,8 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -25,40 +27,137 @@ public class ReservationResource {
     
     Gson gson = new Gson();
     DBReservationUtils reservationUtils = new MySQLReservationUtils();
-    
-    
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllReservation(){
-        
+    public Response getAllReservation() {
+
         return Response
                 .ok(gson.toJson(reservationUtils.getAllReservations()))
                 .build();
-        
-        
+
     }
-    
+
     @GET
     @Path("/findreservations/{userName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getReservations(@PathParam("userName") String userName){
-        
-        
+    public Response getReservations(@PathParam("userName") String userName) {
+
         return Response
                 .ok(gson.toJson(reservationUtils.getAllReservationsByCustomer(userName)))
                 .build();
-        
+
     }
-    
-    
-    
-    
+
     @POST
     @Path("/makereservation")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response makeReservation(String json){
+    public Response makeReservation(String json) {
         
-        if(reservationUtils.makeReservation(gson.fromJson(json, Reservation.class))){
+        Reservation reservation = gson.fromJson(json, Reservation.class);
+
+        if (reservationUtils.makeReservation(reservation)) {
+            return Response
+                    .status(Response.Status.CREATED)
+                    .build();
+        } else {
+            return Response
+                    .status(Response.Status.UNAUTHORIZED)
+                    .build();
+        }
+
+    }
+
+    @DELETE
+    @Path("/deletereservations/{reservationid}")
+    public Response deleteReservation(@PathParam("reservationid") String reservationid) {
+
+        if (reservationUtils.deleteReservation(reservationid)) {
+
+            return Response
+                    .status(Response.Status.OK)
+                    .build();
+
+        } else {
+
+            return Response
+                    .status(Response.Status.NOT_FOUND)
+                    .build();
+
+        }
+
+    }
+
+    @GET
+    @Path("/searchreservation/{reservationid}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getReservation(@PathParam("reservationid") String reservationid) {
+
+        Reservation reservation = reservationUtils.searchReservation(reservationid);
+
+        if (reservation == null) {
+            return Response
+                    .status(Response.Status.NOT_FOUND)
+                    .build();
+        } else {
+            return Response
+                    .ok(gson.toJson(reservation))
+                    .build();
+        }
+
+    }
+
+    @PUT
+    @Path("/updatereservation/{reservationid}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateReservation(String json, @PathParam("reservationid") int reservationID) {
+
+        if (reservationUtils.updateReservation(gson.fromJson(json, Reservation.class))) {
+
+            return Response
+                    .status(Response.Status.OK)
+                    .build();
+
+        } else {
+
+            return Response
+                    .status(Response.Status.NOT_FOUND)
+                    .build();
+
+        }
+
+    }
+
+    @GET
+    @Path("/getGenerateID/{userName}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getGeneratedID(@PathParam("userName") String userName) {
+
+        String generatedReservationID = reservationUtils.generatedID(userName);
+
+        if (generatedReservationID.equals("")) {
+            return Response
+                    .status(Response.Status.NOT_FOUND)
+                    .build();
+        } else {
+
+            Map<String, String> responseMap = new HashMap<>();
+            responseMap.put("generatedReservationID", generatedReservationID);
+            return Response
+                    .ok(gson.toJson(responseMap))
+                    .build();
+
+        }
+    }
+    
+    @POST
+    @Path("/makepayment")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response makePayment(String json){
+        
+        Payment payment = gson.fromJson(json, Payment.class);
+        
+        if(reservationUtils.reservationPayment(payment)){
             return Response
                 .status(Response.Status.CREATED)
                 .build();
@@ -69,85 +168,16 @@ public class ReservationResource {
         }
         
     }
-    
-    @DELETE
-    @Path("/deletereservations/{reservationid}")
-    public Response deleteReservation(@PathParam("reservationid") int reservationid){
-        
-        if(reservationUtils.deleteReservation(reservationid)){
-            
-            return Response
-                    .status(Response.Status.OK)
-                    .build();
-            
-        }else{
-            
-            return Response
-                    .status(Response.Status.NOT_FOUND)
-                    .build();
-            
-        }
-        
-    }
-    
-    @GET
-    @Path("/searchreservation/{reservationid}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getReservation(@PathParam("reservationid") int reservationid){
-        
-        Reservation reservation = reservationUtils.searchReservation(reservationid);
-        
-        if(reservation == null){
-            return Response
-                    .status(Response.Status.NOT_FOUND)
-                    .build();
-        }else{
-            return Response
-                    .ok(gson.toJson(reservation))
-                    .build();
-        }
-        
-        
-        
-    }
-    
-    
-    @PUT
-    @Path("/updatereservation/{reservationid}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateReservation(String json, @PathParam("reservationid") int reservationID){
-         
-        
-        if(reservationUtils.updateReservation(gson.fromJson(json, Reservation.class))){
-            
-            return Response
-                    .status(Response.Status.OK)
-                    .build();
-            
-            
-        }else{
-            
-            return Response
-                    .status(Response.Status.NOT_FOUND)
-                    .build();
-            
-        }
-        
-        
-        
-    }
-    
-    
+
     @GET
     @Path("/getDisabledates")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getDisableDates(){
-        
+    public Response getDisableDates() {
+
         return Response.ok(gson.toJson(reservationUtils.availability()))
                 .build();
-        
-        
-    }
 
+    }
     
+
 }

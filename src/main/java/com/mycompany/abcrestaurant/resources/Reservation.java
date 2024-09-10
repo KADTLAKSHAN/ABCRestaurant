@@ -6,14 +6,14 @@ package com.mycompany.abcrestaurant.resources;
  */
 public class Reservation {
     
-    private int reservationID;
+    private String reservationID;
     private String reservationEmail;
     private String reservationDate;
     private String reservationTime;
     private int reservationPeople;
     private String userName;
 
-    public Reservation(int reservationID, String reservationEmail, String reservationDate, String reservationTime, int reservationPeople, String userName) {
+    public Reservation(String reservationID, String reservationEmail, String reservationDate, String reservationTime, int reservationPeople, String userName) {
         this.reservationID = reservationID;
         this.reservationEmail = reservationEmail;
         this.reservationDate = reservationDate;
@@ -22,27 +22,29 @@ public class Reservation {
         this.userName = userName;
     }
 
-    public Reservation(String reservationEmail, String reservationDate, String reservationTime, int reservationPeople, String userName) {
-        this.reservationEmail = reservationEmail;
-        this.reservationDate = reservationDate;
-        this.reservationTime = reservationTime;
-        this.reservationPeople = reservationPeople;
-        this.userName = userName;
-    }
+//    public Reservation(String reservationEmail, String reservationDate, String reservationTime, int reservationPeople, String userName) {
+//        this.reservationEmail = reservationEmail;
+//        this.reservationDate = reservationDate;
+//        this.reservationTime = reservationTime;
+//        this.reservationPeople = reservationPeople;
+//        this.userName = userName;
+//    }
     
     
 
-    public Reservation() {
-        
-    }
+//    public Reservation() {
+//        
+//    }
 
-    public int getReservationID() {
+    public String getReservationID() {
         return reservationID;
     }
 
-    public void setReservationID(int reservationID) {
+    public void setReservationID(String reservationID) {
         this.reservationID = reservationID;
     }
+
+    
 
     public String getReservationEmail() {
         return reservationEmail;

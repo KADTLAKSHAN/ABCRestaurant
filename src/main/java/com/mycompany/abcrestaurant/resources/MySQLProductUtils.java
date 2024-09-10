@@ -116,7 +116,7 @@ public class MySQLProductUtils implements DBProductUtils {
     @Override
     public Product searchProduct(String productID) {
 
-        String sql = "SELECT * FROM tblProduct WHERE productID=?";
+        String sql = "SELECT * FROM tblProduct WHERE productID=? OR productName LIKE ?";
         Product product = null;
 
         try {
@@ -125,6 +125,7 @@ public class MySQLProductUtils implements DBProductUtils {
             myConnection.getConnection();
             PreparedStatement pst = myConnection.getPreparedStatement(sql);
             pst.setString(1, productID);
+            pst.setString(2, "%" + productID + "%");
 
             ResultSet resultSet = pst.executeQuery();
 

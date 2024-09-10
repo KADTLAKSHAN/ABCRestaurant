@@ -109,7 +109,7 @@ public class MySQLRateUtils implements DBRateUtils {
     @Override
     public List<Map<String, Object>> getAllRatingWithName() {
         
-        String sql = "SELECT r.rateID,r.rateTitle,r.rateDescription,u.userFirstName FROM tblRating r JOIN tblUser u ON r.userName = u.userName;";
+        String sql = "SELECT r.rateID,r.rateTitle,r.rateDescription,u.userFirstName FROM tblRating r JOIN tblUser u ON r.userName = u.userName";
         
         List<Map<String, Object>> ratings = new ArrayList<>();
         

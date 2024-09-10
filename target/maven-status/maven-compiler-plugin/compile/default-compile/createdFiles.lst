@@ -21,8 +21,10 @@ com/mycompany/abcrestaurant/resources/InquiryResource.class
 com/mycompany/abcrestaurant/resources/DBReservationUtils.class
 com/mycompany/abcrestaurant/resources/MySQLInquryUtils.class
 com/mycompany/abcrestaurant/resources/User.class
+com/mycompany/abcrestaurant/resources/Payment.class
 com/mycompany/abcrestaurant/resources/MySQLReservationUtils.class
 com/mycompany/abcrestaurant/resources/RateResource.class
+com/mycompany/abcrestaurant/resources/Date.class
 com/mycompany/abcrestaurant/resources/Product.class
 com/mycompany/abcrestaurant/resources/MySQLRateUtils.class
 com/mycompany/abcrestaurant/resources/Rate.class
