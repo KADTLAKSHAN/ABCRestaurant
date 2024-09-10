@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="1" failures="0" name="com.mycompany.abcrestaurant.resources.MySQLUserUtilsTest" time="0.206" errors="0" skipped="0">
+<testsuite tests="1" failures="0" name="com.mycompany.abcrestaurant.resources.MySQLUserUtilsTest" time="0.228" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="java.vm.version" value="19.0.1+10-21"/>
@@ -12,11 +12,11 @@
     <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
     <property name="user.country" value="LK"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
-    <property name="test" value="com.mycompany.abcrestaurant.resources.MySQLUserUtilsTest"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="user.dir" value="/Users/tharindulakshan/Desktop/Advance Programming Assignment/ABCRestaurant"/>
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
     <property name="java.runtime.version" value="19.0.1+10-21"/>
+    <property name="netbeans.deploy" value="true"/>
     <property name="os.arch" value="aarch64"/>
     <property name="java.io.tmpdir" value="/var/folders/hn/71qzbj5914q38n1993wsjrqc0000gn/T/"/>
     <property name="line.separator" value="
@@ -45,7 +45,7 @@
     <property name="java.class.path" value="/Applications/NetBeans/Apache NetBeans 15.app/Contents/Resources/NetBeans/netbeans/java/maven/boot/plexus-classworlds-2.6.0.jar"/>
     <property name="java.vm.specification.version" value="19"/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dtest=com.mycompany.abcrestaurant.resources.MySQLUserUtilsTest -Dmaven.ext.class.path=/Applications/NetBeans/Apache NetBeans 15.app/Contents/Resources/NetBeans/netbeans/java/maven-nblib/netbeans-eventspy.jar surefire:test"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dnetbeans.deploy=true -Dnetbeans.deploy.clientUrlPart=/index.html -Dmaven.ext.class.path=/Applications/NetBeans/Apache NetBeans 15.app/Contents/Resources/NetBeans/netbeans/java/maven-nblib/netbeans-eventspy.jar package"/>
     <property name="java.home" value="/Library/Java/JavaVirtualMachines/jdk-19.jdk/Contents/Home"/>
     <property name="apple.awt.application.name" value="Launcher"/>
     <property name="user.language" value="en"/>
@@ -61,7 +61,8 @@
     <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="netbeans.deploy.clientUrlPart" value="/index.html"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
   </properties>
-  <testcase classname="com.mycompany.abcrestaurant.resources.MySQLUserUtilsTest" name="com.mycompany.abcrestaurant.resources.MySQLUserUtilsTest.testUserMangement" time="0.206"/>
+  <testcase classname="com.mycompany.abcrestaurant.resources.MySQLUserUtilsTest" name="com.mycompany.abcrestaurant.resources.MySQLUserUtilsTest.testUserMangement" time="0.228"/>
 </testsuite>
