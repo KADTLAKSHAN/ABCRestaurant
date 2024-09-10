@@ -26,7 +26,7 @@ public class MyConnection {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/abc_restaurant?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false", "root", "MySQL@123");
             st = con.createStatement();
-            System.out.println("Connection Success!");
+//            System.out.println("Connection Success!");
 
         } catch (ClassNotFoundException e) {
             

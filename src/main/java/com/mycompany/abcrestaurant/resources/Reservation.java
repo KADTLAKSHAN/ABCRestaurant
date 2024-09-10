@@ -32,9 +32,9 @@ public class Reservation {
     
     
 
-//    public Reservation() {
-//        
-//    }
+    public Reservation() {
+        
+    }
 
     public String getReservationID() {
         return reservationID;
