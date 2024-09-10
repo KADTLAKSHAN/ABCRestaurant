@@ -8,17 +8,21 @@ import java.util.List;
  */
 public interface DBUserUtils {
     
-    public List<User> getUsers();
+    public List<Customer> getUsers();
     
-    public User getUser();
+    public Customer searchUser(String userName);
     
-    public boolean addUser();
+    public boolean addUser(Customer customer);
     
-    public boolean updateUser();
+    public boolean updateUsers(Customer user);
     
-    public boolean deleteUser();
+    public boolean deleteUser(String userName);
     
-    public boolean userLogin();
+    public boolean userLogin(String userName, String userPassword, String userType);
+    
+    public boolean addCustomer(Customer customer);
+    
+    public boolean updateCustomerProfile(Customer customer);
     
     
 }
