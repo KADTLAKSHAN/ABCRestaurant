@@ -33,4 +33,14 @@ public interface DBReservationUtils {
     
     public boolean reservationPayment(Payment payment);
     
+    public List<Date> getAllReservationDates();
+    
+    public boolean addReservationDate(Date date);
+    
+    public boolean deleteReservationDate(String date);
+    
+    public boolean updateReservationDate(Date date);
+    
+    public Date searchDate(String date);
+    
 }

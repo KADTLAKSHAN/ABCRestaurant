@@ -9,6 +9,7 @@ com/mycompany/abcrestaurant/resources/ProtectedResource.class
 com/mycompany/abcrestaurant/resources/Manager.class
 com/mycompany/abcrestaurant/resources/Category.class
 com/mycompany/abcrestaurant/resources/CategoryResource.class
+com/mycompany/abcrestaurant/resources/TwilioSMS.class
 com/mycompany/abcrestaurant/resources/Reservation.class
 com/mycompany/abcrestaurant/resources/UserResource$LoginResponse.class
 com/mycompany/abcrestaurant/resources/DBUserUtils.class

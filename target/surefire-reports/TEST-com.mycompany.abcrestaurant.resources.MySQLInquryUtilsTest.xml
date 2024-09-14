@@ -16,7 +16,6 @@
     <property name="user.dir" value="/Users/tharindulakshan/Desktop/Advance Programming Assignment/ABCRestaurant"/>
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
     <property name="java.runtime.version" value="19.0.1+10-21"/>
-    <property name="netbeans.deploy" value="true"/>
     <property name="os.arch" value="aarch64"/>
     <property name="java.io.tmpdir" value="/var/folders/hn/71qzbj5914q38n1993wsjrqc0000gn/T/"/>
     <property name="line.separator" value="
@@ -45,7 +44,7 @@
     <property name="java.class.path" value="/Applications/NetBeans/Apache NetBeans 15.app/Contents/Resources/NetBeans/netbeans/java/maven/boot/plexus-classworlds-2.6.0.jar"/>
     <property name="java.vm.specification.version" value="19"/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dnetbeans.deploy=true -Dnetbeans.deploy.clientUrlPart=/index.html -Dmaven.ext.class.path=/Applications/NetBeans/Apache NetBeans 15.app/Contents/Resources/NetBeans/netbeans/java/maven-nblib/netbeans-eventspy.jar package"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dmaven.ext.class.path=/Applications/NetBeans/Apache NetBeans 15.app/Contents/Resources/NetBeans/netbeans/java/maven-nblib/netbeans-eventspy.jar clean install"/>
     <property name="java.home" value="/Library/Java/JavaVirtualMachines/jdk-19.jdk/Contents/Home"/>
     <property name="apple.awt.application.name" value="Launcher"/>
     <property name="user.language" value="en"/>
@@ -61,7 +60,6 @@
     <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
-    <property name="netbeans.deploy.clientUrlPart" value="/index.html"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
   </properties>
 </testsuite>

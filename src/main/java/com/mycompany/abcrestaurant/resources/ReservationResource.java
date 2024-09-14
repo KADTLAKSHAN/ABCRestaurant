@@ -24,7 +24,7 @@ import java.util.Map;
  */
 @Path("reservations")
 public class ReservationResource {
-    
+
     Gson gson = new Gson();
     DBReservationUtils reservationUtils = new MySQLReservationUtils();
 
@@ -53,7 +53,7 @@ public class ReservationResource {
     @Path("/makereservation")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response makeReservation(String json) {
-        
+
         Reservation reservation = gson.fromJson(json, Reservation.class);
 
         if (reservationUtils.makeReservation(reservation)) {
@@ -149,24 +149,24 @@ public class ReservationResource {
 
         }
     }
-    
+
     @POST
     @Path("/makepayment")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response makePayment(String json){
-        
+    public Response makePayment(String json) {
+
         Payment payment = gson.fromJson(json, Payment.class);
-        
-        if(reservationUtils.reservationPayment(payment)){
+
+        if (reservationUtils.reservationPayment(payment)) {
             return Response
-                .status(Response.Status.CREATED)
-                .build();
-        }else{
+                    .status(Response.Status.CREATED)
+                    .build();
+        } else {
             return Response
                     .status(Response.Status.UNAUTHORIZED)
                     .build();
         }
-        
+
     }
 
     @GET
@@ -178,6 +178,89 @@ public class ReservationResource {
                 .build();
 
     }
+
+    @GET
+    @Path("/getAllDisableDates")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllDisableDates() {
+
+        return Response
+                .ok(gson.toJson(reservationUtils.getAllReservationDates()))
+                .build();
+
+    }
+
+    @POST
+    @Path("/addDate")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addDisableDate(String json) {
+
+        Date date = gson.fromJson(json, Date.class);
+
+        if (reservationUtils.addReservationDate(date)) {
+            return Response
+                    .status(Response.Status.CREATED)
+                    .build();
+        } else {
+            return Response
+                    .status(Response.Status.UNAUTHORIZED)
+                    .build();
+        }
+
+    }
+
+    @PUT
+    @Path("/updateDate/{date}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateDisableDate(String json, @PathParam("date") String date) {
+
+        if (reservationUtils.updateReservationDate(gson.fromJson(json, Date.class))) {
+            return Response.status(Response.Status.OK).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+    }
     
+    @DELETE
+    @Path("/deleteDate/{date}")
+    public Response deleteDisableDate(@PathParam("date") String date){
+        
+        if(reservationUtils.deleteReservationDate(date)){
+            
+            return Response
+                    .status(Response.Status.OK)
+                    .build();
+            
+        }else{
+            
+            return Response
+                    .status(Response.Status.NOT_FOUND)
+                    .build();
+            
+        }
+        
+        
+    }
+    
+    @GET
+    @Path("/searchDate/{date}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response searchDisableDate(@PathParam("date") String date){
+        
+        Date dt = reservationUtils.searchDate(date);
+        
+        if(dt == null){
+            return Response
+                    .status(Response.Status.NOT_FOUND)
+                    .build();
+        }else{
+            return Response
+                    .ok(gson.toJson(dt))
+                    .build();
+        }
+        
+        
+    }
 
 }

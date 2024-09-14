@@ -40,6 +40,8 @@ public class MySQLReservationUtils implements DBReservationUtils {
                 pst.setString(6, reservation.getUserName());
 
                 int rowAffected = pst.executeUpdate();
+//                TwilioSMS sendMessage = new TwilioSMS();
+//                sendMessage.sendSms(reservation);
 
                 return rowAffected == 1;
             }else{
@@ -323,6 +325,150 @@ public class MySQLReservationUtils implements DBReservationUtils {
             System.out.println("reservationPayment function error: " + e);
             return false;
         }
+    }
+
+    @Override
+    public List<Date> getAllReservationDates() {
+        
+        String sql = "SELECT * FROM tblDate";
+        
+        List<Date> date = new ArrayList<>();
+        
+        try {
+            
+            MyConnection myCon = MyConnection.getInstance();
+            myCon.getConnection();
+            PreparedStatement pst = myCon.getPreparedStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            
+            while(rs.next()){
+                
+                date.add(new Date(rs.getString(1), rs.getString(2)));
+                
+            }
+            
+            
+        } catch (Exception e) {
+            
+            System.out.println("getAllReservationDates function error: " + e);
+            return null;
+            
+        }
+        
+        return date;
+        
+    }
+
+    @Override
+    public boolean addReservationDate(Date date) {
+        String sql = "INSERT INTO tblDate (date, time) VALUES (?,?)";
+        
+        try {
+            
+            MyConnection myConnection = MyConnection.getInstance();
+            myConnection.getConnection();
+            PreparedStatement pst = myConnection.getPreparedStatement(sql);
+            pst.setString(1, date.getDate());
+            pst.setString(2, date.getTime());
+            
+            int rowAffected = pst.executeUpdate();
+            
+            return rowAffected == 1;
+            
+        } catch (Exception e) {
+            
+            System.out.println("Add date function error: " + e);
+            return false;
+        }
+        
+    }
+
+    @Override
+    public boolean deleteReservationDate(String date) {
+        
+        String sql = "DELETE FROM tblDate WHERE date=?";
+        
+        try {
+            
+            MyConnection myConnection = MyConnection.getInstance();
+            myConnection.getConnection();
+            PreparedStatement pst = myConnection.getPreparedStatement(sql);
+            pst.setString(1, date);
+            
+            if(pst.executeUpdate() == 1){
+
+                return true;
+
+            }
+            
+        } catch (Exception e) {
+            
+            System.out.println("Delete date function error: " + e);
+            
+            
+        }
+        
+        return false;
+        
+    }
+
+    @Override
+    public boolean updateReservationDate(Date date) {
+        String sql = "UPDATE tblDate SET time=? WHERE date=?";
+        
+        try {
+            
+            MyConnection myConnection = MyConnection.getInstance();
+            myConnection.getConnection();
+            PreparedStatement pst = myConnection.getPreparedStatement(sql);
+            pst.setString(1, date.getTime());
+            pst.setString(2, date.getDate());
+            
+            if(pst.executeUpdate() == 1){
+                
+                return true;
+                
+            }
+            
+        } catch (Exception e) {
+           System.out.println("Update date function error: " + e); 
+        }
+        
+        return false;
+    }
+
+    @Override
+    public Date searchDate(String date) {
+        String sql = "SELECT * FROM tblDate WHERE date=?";
+        
+        Date dt = null;
+        
+        try {
+            
+            MyConnection myConnection = MyConnection.getInstance();
+            myConnection.getConnection();
+            PreparedStatement pst = myConnection.getPreparedStatement(sql);
+            pst.setString(1, date);
+            
+            ResultSet rs = pst.executeQuery();
+            
+            if(rs.next()){
+                
+                dt = new Date(rs.getString(1), rs.getString(2));
+                
+            }
+            
+            
+            
+        } catch (Exception e) {
+            
+            System.out.println("Update date function error: " + e);
+            return dt;
+            
+        }
+        
+        return dt;
+        
     }
 
  
